@@ -17,7 +17,7 @@ public final class DatabaseConfig {
     public static final String PASSWORD = firstNonBlank(
             System.getProperty("artconnect.db.password"),
             System.getenv("ARTCONNECT_DB_PASSWORD"),
-            "PoPcorn2005#");
+            "");
 
     private static String firstNonBlank(String first, String second, String fallback) {
         if (first != null && !first.isBlank()) {
