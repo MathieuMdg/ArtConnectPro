@@ -10,6 +10,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDateTime;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class WorkshopController {
     @FXML
@@ -25,6 +28,8 @@ public class WorkshopController {
     @FXML
     private TableColumn<Workshop, String> levelColumn;
 
+    private Timeline autoRefreshTimeline;
+
     private final WorkshopService workshopService = ServiceProvider.getWorkshopService();
 
     @FXML
@@ -38,6 +43,20 @@ public class WorkshopController {
                 cellData.getValue().getInstructor() != null ? cellData.getValue().getInstructor().getName()
                         : "Unknown"));
 
+        refreshTable();
+        startAutoRefresh();
+    }
+
+    private void refreshTable() {
         workshopTable.setItems(FXCollections.observableArrayList(workshopService.getAllWorkshops()));
     }
+
+    private void startAutoRefresh() {
+        autoRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), event -> refreshTable()));
+        autoRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        autoRefreshTimeline.play();
+    }
+
+
 }

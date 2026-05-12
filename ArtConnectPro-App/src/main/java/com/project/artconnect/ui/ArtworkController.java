@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class ArtworkController {
     @FXML
@@ -24,6 +27,8 @@ public class ArtworkController {
     @FXML
     private TableColumn<Artwork, String> artistColumn;
 
+    private Timeline autoRefreshTimeline;
+
     private final ArtworkService artworkService = ServiceProvider.getArtworkService();
 
     @FXML
@@ -36,6 +41,20 @@ public class ArtworkController {
         artistColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().getArtist() != null ? cellData.getValue().getArtist().getName() : "Unknown"));
 
+        refreshTable();
+        startAutoRefresh();
+
+    }
+
+    private void refreshTable() {
         artworkTable.setItems(FXCollections.observableArrayList(artworkService.getAllArtworks()));
     }
+
+    private void startAutoRefresh() {
+        autoRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), event -> refreshTable()));
+        autoRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        autoRefreshTimeline.play();
+    }
+
 }

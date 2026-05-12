@@ -236,13 +236,17 @@ INSERT INTO gallery (name, address, owner_name, opening_hours, contact_phone, ra
 ('Metropolitan Hub', '1000 5th Ave, New York', 'Olivia Stone', '09:30-19:00', '+1-703-333', 4.8, 'www.metropolitanhub.us'),
 ('Modern Arts Center', '22 Art Street, Berlin', 'Hans Keller', '10:00-20:00', '+49-704-444', 4.6, 'www.modernartscenter.de');
 
+INSERT INTO gallery (name, address, owner_name, opening_hours, contact_phone, rating, website) VALUES
+('Beaux Arts', '32 Art Street, Berlin', 'Mahammed', '10:01-20:00', '+49-704-445', 4.8, 'www.modernartscenter.dz');
+
 INSERT INTO community_member (name, email, birth_year, phone, city, membership_type) VALUES
 ('Alice Wonderland', 'alice@art.com', 1998, '+33-801-001', 'Paris', 'Premium'),
 ('Bob Ross', 'bob@happytrees.com', 1985, '+44-801-002', 'London', 'Standard'),
 ('Charlie Brown', 'charlie@peanuts.com', 1995, '+1-801-003', 'New York', 'Student'),
 ('Diana Moore', 'diana@culture.org', 1990, '+49-801-004', 'Berlin', 'Premium'),
 ('Emma Davis', 'emma@creative.net', 2001, '+33-801-005', 'Lyon', 'Standard'),
-('Farid Khan', 'farid@artsocial.io', 1993, '+212-801-006', 'Casablanca', 'Premium');
+('Farid Khan', 'farid@artsocial.io', 1993, '+212-801-006', 'Casablanca', 'Premium'),
+('Mendougance', 'mendougance@art.com', 1983, '+212-801-006', 'Bamako', 'Premium');
 
 INSERT INTO artist_discipline (artist_id, discipline_id) VALUES
 (1, 1),
@@ -293,6 +297,9 @@ INSERT INTO exhibition (title, start_date, end_date, description, curator_name, 
 ('Impressionist Dreams', '2026-02-09', '2026-03-20', 'Light, color and poetic atmosphere.', 'Olivia Stone', 'Light and Color', 3),
 ('Digital Horizons', '2026-04-05', '2026-05-30', 'Contemporary digital and hybrid artworks.', 'Hans Keller', 'Future of Expression', 4);
 
+INSERT INTO exhibition (title, start_date, end_date, description, curator_name, theme, gallery_id) VALUES
+('Large Horizons', '2026-04-08', '2026-05-05', 'Modern art work.', 'Mahammed', 'Future of Art', 5);
+
 INSERT INTO exhibition_artwork (exhibition_id, artwork_id) VALUES
 (1, 1),
 (1, 2),
@@ -308,6 +315,7 @@ INSERT INTO workshop (title, date, duration_minutes, max_participants, price, in
 ('Impressionist Landscapes', '2026-04-19 14:00:00', 150, 20, 120.00, 2, 'Metropolitan Hub', 'Painting landscapes with light and movement.', 'Beginner'),
 ('Sculpting Modernity', '2026-04-24 09:30:00', 210, 12, 200.00, 5, 'The British Gallery', 'Study of expressive sculpture techniques.', 'Advanced'),
 ('Creative Digital Layers', '2026-05-03 11:00:00', 160, 18, 90.00, 6, 'Modern Arts Center', 'Experimenting with digital and mixed-media workflows.', 'Intermediate');
+
 
 INSERT INTO review (reviewer_member_id, artwork_id, rating, comment, review_date) VALUES
 (1, 1, 5, 'A timeless masterpiece.', '2026-03-10'),
@@ -509,6 +517,10 @@ VALUES (3, 2, NOW(), 'PAID');
 
 INSERT INTO booking (workshop_id, member_id, booking_date, payment_status)
 VALUES (999, 2, NOW(), 'PAID');
+
+SELECT *
+FROM community_member
+WHERE name = 'Mendougance';
 
 ROLLBACK;
 

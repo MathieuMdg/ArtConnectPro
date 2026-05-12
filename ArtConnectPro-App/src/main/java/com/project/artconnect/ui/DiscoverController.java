@@ -12,6 +12,9 @@ import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class DiscoverController {
     @FXML
@@ -19,19 +22,34 @@ public class DiscoverController {
 
     private final GalleryService galleryService = ServiceProvider.getGalleryService();
     private final WorkshopService workshopService = ServiceProvider.getWorkshopService();
+    private Timeline autoRefreshTimeline;
 
     @FXML
     public void initialize() {
-        // Collect some exhibitions from galleries
+        refreshDiscover();
+        startAutoRefresh();
+    }
+
+    private void refreshDiscover() {
+        discoverPane.getChildren().clear();
+
         List<Exhibition> featuredExhibitions = new ArrayList<>();
         for (Gallery g : galleryService.getAllGalleries()) {
             featuredExhibitions.addAll(g.getExhibitions());
-            if (featuredExhibitions.size() >= 3)
+            if (featuredExhibitions.size() >= 3) {
                 break;
+            }
         }
 
         featuredExhibitions.stream().limit(3).forEach(this::addExhibitionCard);
         workshopService.getAllWorkshops().stream().limit(3).forEach(this::addWorkshopCard);
+    }
+
+    private void startAutoRefresh() {
+        autoRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), event -> refreshDiscover()));
+        autoRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        autoRefreshTimeline.play();
     }
 
     private void addExhibitionCard(Exhibition e) {

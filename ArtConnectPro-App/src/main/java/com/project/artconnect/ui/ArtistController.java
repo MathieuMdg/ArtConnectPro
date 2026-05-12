@@ -8,6 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class ArtistController {
     @FXML
@@ -25,6 +28,8 @@ public class ArtistController {
     @FXML
     private TableColumn<Artist, Integer> yearColumn;
 
+    private Timeline autoRefreshTimeline;
+
     private final ArtistService artistService = ServiceProvider.getArtistService();
 
     @FXML
@@ -35,7 +40,10 @@ public class ArtistController {
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("birthYear"));
 
         disciplineFilter.setItems(FXCollections.observableArrayList(artistService.getAllDisciplines()));
-        refreshTable();
+        refreshCurrentView();
+        startAutoRefresh();
+
+
     }
 
     @FXML
@@ -56,4 +64,28 @@ public class ArtistController {
     private void refreshTable() {
         artistTable.setItems(FXCollections.observableArrayList(artistService.getAllArtists()));
     }
+
+    private void refreshCurrentView() {
+        String query = searchField.getText();
+        Discipline d = disciplineFilter.getValue();
+
+        boolean hasQuery = query != null && !query.isBlank();
+        boolean hasDiscipline = d != null;
+
+        if (hasQuery || hasDiscipline) {
+            String dName = (d != null) ? d.getName() : null;
+            artistTable.setItems(FXCollections.observableArrayList(
+                    artistService.searchArtists(query, dName, null)));
+        } else {
+            refreshTable();
+        }
+    }
+
+    private void startAutoRefresh() {
+        autoRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), event -> refreshCurrentView()));
+        autoRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        autoRefreshTimeline.play();
+    }
+
 }

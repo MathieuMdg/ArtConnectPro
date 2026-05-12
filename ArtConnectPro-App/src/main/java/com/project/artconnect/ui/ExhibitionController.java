@@ -13,6 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public class ExhibitionController {
     @FXML
@@ -26,6 +29,8 @@ public class ExhibitionController {
     @FXML
     private TableColumn<Exhibition, String> galleryColumn;
 
+    private Timeline autoRefreshTimeline;
+
     private final GalleryService galleryService = ServiceProvider.getGalleryService();
 
     @FXML
@@ -38,6 +43,7 @@ public class ExhibitionController {
                 cellData.getValue().getGallery() != null ? cellData.getValue().getGallery().getName() : "Unknown"));
 
         refreshData();
+        startAutoRefresh();
     }
 
     private void refreshData() {
@@ -46,5 +52,12 @@ public class ExhibitionController {
             all.addAll(g.getExhibitions());
         }
         exhibitionTable.setItems(FXCollections.observableArrayList(all));
+    }
+
+    private void startAutoRefresh() {
+        autoRefreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(5), event -> refreshData()));
+        autoRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        autoRefreshTimeline.play();
     }
 }
