@@ -1,28 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.project.artconnect.ui.AdminController">
+            fx:controller="com.project.artconnect.ui.AdminController"
+            style="-fx-background-color: #f4f4f4;">
 
     <top>
-        <Label text="Panneau Administrateur"
-               style="-fx-font-size: 24px; -fx-padding: 15;"/>
-    </top>
 
-    
+        <HBox alignment="CENTER_LEFT"
+              style="-fx-background-color: #2c3e50;"
+              spacing="10">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Panneau Administrateur"
+                   style="
+                        -fx-font-size: 26px;
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                   "/>
+
+        </HBox>
+
+    </top>
 
     <center>
 
-        <VBox spacing="10" style="-fx-padding: 20;">
+        <TabPane tabClosingPolicy="UNAVAILABLE"
+                style="-fx-padding: 15;">
 
-            <Button text="Afficher les artistes/Actualiser"
-                    onAction="#loadArtists"/>
+            <!-- ONGLET ARTISTES -->
+            <Tab text="Artistes">
 
-            <ListView fx:id="artistListView"/>
+                <BorderPane style="
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 20;
+                ">
 
-        </VBox>
+                    <left>
+
+                        <VBox spacing="10" prefWidth="320">
+
+                            <Label text="Ajouter / Modifier un artiste"
+                                style="-fx-font-size: 18px;
+                                        -fx-font-weight: bold;" />
+
+                            <TextField fx:id="nameField"
+                                    promptText="Nom"/>
+
+                            <TextArea fx:id="bioField"
+                                    promptText="Biographie"
+                                    prefHeight="80"/>
+
+                            <TextField fx:id="birthYearField"
+                                    promptText="Année de naissance"/>
+
+                            <TextField fx:id="emailField"
+                                    promptText="Email"/>
+
+                            <TextField fx:id="phoneField"
+                                    promptText="Téléphone"/>
+
+                            <TextField fx:id="cityField"
+                                    promptText="Ville"/>
+
+                            <TextField fx:id="websiteField"
+                                    promptText="Site web"/>
+
+                            <TextField fx:id="socialField"
+                                    promptText="Réseaux sociaux"/>
+
+                            <CheckBox fx:id="activeCheckBox"
+                                    text="Artiste actif"
+                                    selected="true"/>
+
+                            <HBox spacing="10">
+
+                                <Button text="Ajouter"
+                                        onAction="#handleAddArtist"
+                                        prefWidth="100"/>
+
+                                <Button text="Modifier"
+                                        onAction="#handleUpdateArtist"
+                                        prefWidth="100"/>
+
+                            </HBox>
+
+                            <Button text="Supprimer sélection"
+                                    onAction="#deleteArtist"/>
+
+                            <Button text="Actualiser"
+                                    onAction="#loadArtists"/>
+
+                        </VBox>
+
+                    </left>
+
+                    <center>
+
+                        <VBox spacing="10"
+                            style="-fx-padding: 0 0 0 20;">
+
+                            <Label text="Liste des artistes"
+                                style="-fx-font-size: 18px;
+                                        -fx-font-weight: bold;" />
+
+                            <ListView fx:id="artistListView"
+                                    VBox.vgrow="ALWAYS"/>
+
+                        </VBox>
+
+                    </center>
+
+                </BorderPane>
+
+            </Tab>
+
+            <!-- ONGLET OEUVRES -->
+            <Tab text="Œuvres">
+
+                <VBox spacing="10"
+                    style="-fx-padding: 20;">
+
+                    <Label text="Gestion des œuvres"
+                        style="-fx-font-size: 18px;
+                                -fx-font-weight: bold;" />
+
+                    <ListView fx:id="artworkListView"/>
+
+                </VBox>
+
+            </Tab>
+
+            <!-- ONGLET GALERIES -->
+            <Tab text="Galeries">
+
+                <VBox spacing="10"
+                    style="-fx-padding: 20;">
+
+                    <Label text="Gestion des galeries"
+                        style="-fx-font-size: 18px;
+                                -fx-font-weight: bold;" />
+
+                    <ListView fx:id="galleryListView"/>
+
+                </VBox>
+
+            </Tab>
+
+            <!-- ONGLET MEMBRES -->
+            <Tab text="Membres">
+
+                <VBox spacing="10"
+                    style="-fx-padding: 20;">
+
+                    <Label text="Gestion des membres"
+                        style="-fx-font-size: 18px;
+                                -fx-font-weight: bold;" />
+
+                    <ListView fx:id="memberListView"/>
+
+                </VBox>
+
+            </Tab>
+
+            <!-- ONGLET EXPOSITIONS -->
+            <Tab text="Expositions">
+
+                <VBox spacing="10"
+                    style="-fx-padding: 20;">
+
+                    <Label text="Gestion des expositions"
+                        style="-fx-font-size: 18px;
+                                -fx-font-weight: bold;" />
+
+                    <ListView fx:id="exhibitionListView"/>
+
+                </VBox>
+
+            </Tab>
+
+        </TabPane>
 
     </center>
 
