@@ -4,6 +4,7 @@ import com.project.artconnect.config.DatabaseConfig;
 import com.project.artconnect.dao.UserDao;
 import com.project.artconnect.persistence.JdbcUserDao;
 import com.project.artconnect.service.AuthService;
+import com.project.artconnect.ui.MainController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -87,6 +88,9 @@ public class MainApp extends Application {
         );
 
         Scene scene = new Scene(loader.load(), 1200, 800);
+        MainController controller = loader.getController();
+
+        controller.setAuthService(authService);
 
         stage.setTitle("ArtConnect Pro - Local Art Community Platform");
 
@@ -99,9 +103,9 @@ public class MainApp extends Application {
         // =========================
 
         if (authService.isAdmin()) {
-            System.out.println("Connecté en ADMIN");
+            System.out.println("Connection en tant que ADMIN");
         } else {
-            System.out.println("Connecté en USER");
+            System.out.println("Connection en tant que USER");
         }
     }
 

@@ -12,6 +12,11 @@
         <Menu text="Help">
             <MenuItem text="About"/>
         </Menu>
+        <Menu fx:id="adminMenu" text="Admin">
+            <items>
+                <MenuItem text="Panneau Admin"/>
+            </items>
+        </Menu>
     </MenuBar>
     
     <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
