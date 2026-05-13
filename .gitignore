@@ -58,3 +58,5 @@ ArtConnectPro-App/target/classes/com/project/artconnect/model/CommunityMember.cl
 ArtConnectPro-App/target/classes/com/project/artconnect/model/ArtworkTag.class
 ArtConnectPro-App/src/main/java/com/project/artconnect/config/DatabaseConfig.java
 /ArtConnectPro-App/src/main/java/com/project/artconnect/config
+ArtConnectPro-App/src/main/java/com/project/artconnect/config/DatabaseConfig.java
+ArtConnectPro-App/src/main/java/com/project/artconnect/config/DatabaseConfig.java

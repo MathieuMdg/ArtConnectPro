@@ -1,5 +1,9 @@
 package com.project.artconnect.config;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public final class DatabaseConfig {
     private DatabaseConfig() {
     }
@@ -17,7 +21,11 @@ public final class DatabaseConfig {
     public static final String PASSWORD = firstNonBlank(
             System.getProperty("artconnect.db.password"),
             System.getenv("ARTCONNECT_DB_PASSWORD"),
-            "");
+            "!Ma87_Me04");
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
 
     private static String firstNonBlank(String first, String second, String fallback) {
         if (first != null && !first.isBlank()) {
@@ -28,4 +36,5 @@ public final class DatabaseConfig {
         }
         return fallback;
     }
+
 }
