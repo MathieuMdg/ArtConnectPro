@@ -24,7 +24,10 @@ public class AuthService {
 
     /** Déconnecte l'utilisateur courant. */
     public void logout() {
+
         this.currentUser = null;
+
+        UserSession.logout();
     }
 
     /** Retourne l'utilisateur actuellement connecté (peut être null). */
@@ -92,6 +95,8 @@ public class AuthService {
                 );
 
         if(validPassword) {
+
+            this.currentUser = user;
 
             UserSession.login(user);
 
