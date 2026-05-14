@@ -141,16 +141,80 @@
             <!-- ONGLET GALERIES -->
             <Tab text="Galeries">
 
-                <VBox spacing="10"
-                    style="-fx-padding: 20;">
+                <BorderPane style="
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 20;
+                ">
 
-                    <Label text="Gestion des galeries"
-                        style="-fx-font-size: 18px;
-                                -fx-font-weight: bold;" />
+                    <left>
 
-                    <ListView fx:id="galleryListView"/>
+                        <VBox spacing="10" prefWidth="320">
 
-                </VBox>
+                            <Label text="Ajouter / Modifier une galerie"
+                                style="-fx-font-size: 18px;
+                                        -fx-font-weight: bold;" />
+
+                            <TextField fx:id="galleryNameField"
+                                    promptText="Nom"/>
+
+                            <TextField fx:id="galleryAddressField"
+                                    promptText="Adresse"/>
+
+                            <TextField fx:id="galleryOwnerField"
+                                    promptText="Propriétaire"/>
+
+                            <TextField fx:id="galleryHoursField"
+                                    promptText="Horaires"/>
+
+                            <TextField fx:id="galleryPhoneField"
+                                    promptText="Téléphone"/>
+
+                            <TextField fx:id="galleryRatingField"
+                                    promptText="Note (0 à 5)"/>
+
+                            <TextField fx:id="galleryWebsiteField"
+                                    promptText="Site web"/>
+
+                            <HBox spacing="10">
+
+                                <Button text="Ajouter"
+                                        onAction="#handleAddGallery"
+                                        prefWidth="100"/>
+
+                                <Button text="Modifier"
+                                        onAction="#handleUpdateGallery"
+                                        prefWidth="100"/>
+
+                            </HBox>
+
+                            <Button text="Supprimer sélection"
+                                    onAction="#deleteGallery"/>
+
+                            <Button text="Actualiser"
+                                    onAction="#loadGalleries"/>
+
+                        </VBox>
+
+                    </left>
+
+                    <center>
+
+                        <VBox spacing="10"
+                            style="-fx-padding: 0 0 0 20;">
+
+                            <Label text="Liste des galeries"
+                                style="-fx-font-size: 18px;
+                                        -fx-font-weight: bold;" />
+
+                            <ListView fx:id="galleryListView"
+                                    VBox.vgrow="ALWAYS"/>
+
+                        </VBox>
+
+                    </center>
+
+                </BorderPane>
 
             </Tab>
 

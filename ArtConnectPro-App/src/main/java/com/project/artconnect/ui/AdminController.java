@@ -72,6 +72,34 @@ public class AdminController implements Initializable {
     @FXML
     private CheckBox activeCheckBox;
 
+
+    // =========================================================
+    // FORMULAIRE GALERIE
+    // =========================================================
+
+    @FXML
+    private TextField galleryNameField;
+
+    @FXML
+    private TextField galleryAddressField;
+
+    @FXML
+    private TextField galleryOwnerField;
+
+    @FXML
+    private TextField galleryHoursField;
+
+
+    @FXML
+    private TextField galleryWebsiteField;
+
+    
+    @FXML
+    private TextField galleryRatingField;
+
+    @FXML
+    private TextField galleryPhoneField;
+
     // =========================================================
     // INITIALISATION
     // =========================================================
@@ -345,6 +373,229 @@ public class AdminController implements Initializable {
                     e.getMessage()
             );
         }
+    }
+
+    // =========================================================
+    // ADD GALLERY
+    // =========================================================
+
+    @FXML
+    private void handleAddGallery() {
+
+        String sql = """
+            INSERT INTO gallery
+            (
+                name,
+                address,
+                owner_name,
+                opening_hours,
+                contact_phone,
+                rating,
+                website
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """;
+
+        try (
+                Connection connection = DatabaseConfig.getConnection();
+
+                PreparedStatement ps =
+                        connection.prepareStatement(sql)
+        ) {
+
+            ps.setString(1, galleryNameField.getText());
+            ps.setString(2, galleryAddressField.getText());
+            ps.setString(3, galleryOwnerField.getText());
+            ps.setString(4, galleryHoursField.getText());
+            ps.setString(5, galleryPhoneField.getText());
+
+            if (galleryRatingField.getText().isEmpty()) {
+
+                ps.setNull(6, java.sql.Types.DECIMAL);
+
+            } else {
+
+                ps.setDouble(
+                        6,
+                        Double.parseDouble(galleryRatingField.getText())
+                );
+            }
+
+            ps.setString(7, galleryWebsiteField.getText());
+
+            ps.executeUpdate();
+
+            loadGalleries();
+
+            clearGalleryFields();
+
+            showInfo(
+                    "Galerie ajoutée",
+                    "La galerie a été ajoutée avec succès."
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showError(
+                    "Erreur ajout galerie",
+                    e.getMessage()
+            );
+        }
+    }
+
+    // =========================================================
+    // UPDATE GALLERY
+    // =========================================================
+
+    @FXML
+    private void handleUpdateGallery() {
+
+        String selectedGallery =
+                galleryListView
+                        .getSelectionModel()
+                        .getSelectedItem();
+
+        if (selectedGallery == null) {
+
+            showError(
+                    "Aucune sélection",
+                    "Veuillez sélectionner une galerie."
+            );
+
+            return;
+        }
+
+        String sql = """
+            UPDATE gallery
+            SET
+                name = ?,
+                address = ?,
+                owner_name = ?,
+                opening_hours = ?,
+                contact_phone = ?,
+                rating = ?,
+                website = ?
+            WHERE name = ?
+        """;
+
+        try (
+                Connection connection = DatabaseConfig.getConnection();
+
+                PreparedStatement ps =
+                        connection.prepareStatement(sql)
+        ) {
+
+            ps.setString(1, galleryNameField.getText());
+            ps.setString(2, galleryAddressField.getText());
+            ps.setString(3, galleryOwnerField.getText());
+            ps.setString(4, galleryHoursField.getText());
+            ps.setString(5, galleryPhoneField.getText());
+
+            if (galleryRatingField.getText().isEmpty()) {
+
+                ps.setNull(6, java.sql.Types.DECIMAL);
+
+            } else {
+
+                ps.setDouble(
+                        6,
+                        Double.parseDouble(galleryRatingField.getText())
+                );
+            }
+
+            ps.setString(7, galleryWebsiteField.getText());
+
+            ps.setString(8, selectedGallery);
+
+            ps.executeUpdate();
+
+            loadGalleries();
+
+            showInfo(
+                    "Galerie modifiée",
+                    "La galerie a été modifiée avec succès."
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showError(
+                    "Erreur modification galerie",
+                    e.getMessage()
+            );
+        }
+    }
+
+    // =========================================================
+    // DELETE GALLERY
+    // =========================================================
+
+    @FXML
+    private void deleteGallery() {
+
+        String selectedGallery =
+                galleryListView
+                        .getSelectionModel()
+                        .getSelectedItem();
+
+        if (selectedGallery == null) {
+
+            showError(
+                    "Aucune sélection",
+                    "Veuillez sélectionner une galerie."
+            );
+
+            return;
+        }
+
+        String sql =
+                "DELETE FROM gallery WHERE name = ?";
+
+        try (
+                Connection connection = DatabaseConfig.getConnection();
+
+                PreparedStatement ps =
+                        connection.prepareStatement(sql)
+        ) {
+
+            ps.setString(1, selectedGallery);
+
+            ps.executeUpdate();
+
+            loadGalleries();
+
+            showInfo(
+                    "Galerie supprimée",
+                    "La galerie a été supprimée avec succès."
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            showError(
+                    "Erreur suppression galerie",
+                    e.getMessage()
+            );
+        }
+    }
+
+    // =========================================================
+    // CLEAR GALLERY FORM
+    // =========================================================
+
+    private void clearGalleryFields() {
+
+        galleryNameField.clear();
+        galleryAddressField.clear();
+        galleryOwnerField.clear();
+        galleryHoursField.clear();
+        galleryPhoneField.clear();
+        galleryRatingField.clear();
+        galleryWebsiteField.clear();
     }
 
     // =========================================================
