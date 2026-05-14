@@ -11,8 +11,8 @@
     <top>
 
         <HBox alignment="CENTER_LEFT"
-              style="-fx-background-color: #2c3e50;"
-              spacing="10">
+              spacing="10"
+              style="-fx-background-color: #2c3e50;">
 
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
@@ -32,9 +32,12 @@
     <center>
 
         <TabPane tabClosingPolicy="UNAVAILABLE"
-                style="-fx-padding: 15;">
+                 style="-fx-padding: 15;">
 
+            <!-- ===================================================== -->
             <!-- ONGLET ARTISTES -->
+            <!-- ===================================================== -->
+
             <Tab text="Artistes">
 
                 <BorderPane style="
@@ -48,47 +51,49 @@
                         <VBox spacing="10" prefWidth="320">
 
                             <Label text="Ajouter / Modifier un artiste"
-                                style="-fx-font-size: 18px;
-                                        -fx-font-weight: bold;" />
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
 
                             <TextField fx:id="nameField"
-                                    promptText="Nom"/>
+                                       promptText="Nom"/>
 
                             <TextArea fx:id="bioField"
-                                    promptText="Biographie"
-                                    prefHeight="80"/>
+                                      promptText="Biographie"
+                                      prefHeight="80"/>
 
                             <TextField fx:id="birthYearField"
-                                    promptText="Année de naissance"/>
+                                       promptText="Année de naissance"/>
 
                             <TextField fx:id="emailField"
-                                    promptText="Email"/>
+                                       promptText="Email"/>
 
                             <TextField fx:id="phoneField"
-                                    promptText="Téléphone"/>
+                                       promptText="Téléphone"/>
 
                             <TextField fx:id="cityField"
-                                    promptText="Ville"/>
+                                       promptText="Ville"/>
 
                             <TextField fx:id="websiteField"
-                                    promptText="Site web"/>
+                                       promptText="Site web"/>
 
                             <TextField fx:id="socialField"
-                                    promptText="Réseaux sociaux"/>
+                                       promptText="Réseaux sociaux"/>
 
                             <CheckBox fx:id="activeCheckBox"
-                                    text="Artiste actif"
-                                    selected="true"/>
+                                      text="Artiste actif"
+                                      selected="true"/>
 
                             <HBox spacing="10">
 
                                 <Button text="Ajouter"
-                                        onAction="#handleAddArtist"
-                                        prefWidth="100"/>
+                                        prefWidth="100"
+                                        onAction="#handleAddArtist"/>
 
                                 <Button text="Modifier"
-                                        onAction="#handleUpdateArtist"
-                                        prefWidth="100"/>
+                                        prefWidth="100"
+                                        onAction="#handleUpdateArtist"/>
 
                             </HBox>
 
@@ -105,14 +110,16 @@
                     <center>
 
                         <VBox spacing="10"
-                            style="-fx-padding: 0 0 0 20;">
+                              style="-fx-padding: 0 0 0 20;">
 
                             <Label text="Liste des artistes"
-                                style="-fx-font-size: 18px;
-                                        -fx-font-weight: bold;" />
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
 
                             <ListView fx:id="artistListView"
-                                    VBox.vgrow="ALWAYS"/>
+                                      VBox.vgrow="ALWAYS"/>
 
                         </VBox>
 
@@ -122,23 +129,105 @@
 
             </Tab>
 
+            <!-- ===================================================== -->
             <!-- ONGLET OEUVRES -->
+            <!-- ===================================================== -->
+
             <Tab text="Œuvres">
 
-                <VBox spacing="10"
-                    style="-fx-padding: 20;">
+                <BorderPane style="
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 20;
+                ">
 
-                    <Label text="Gestion des œuvres"
-                        style="-fx-font-size: 18px;
-                                -fx-font-weight: bold;" />
+                    <left>
 
-                    <ListView fx:id="artworkListView"/>
+                        <VBox spacing="10"
+                              prefWidth="350">
 
-                </VBox>
+                            <Label text="Ajouter / Modifier une œuvre"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <TextField fx:id="artworkTitleField"
+                                       promptText="Titre"/>
+
+                            <TextField fx:id="artworkYearField"
+                                       promptText="Année de création"/>
+
+                            <TextField fx:id="artworkTypeField"
+                                       promptText="Type"/>
+
+                            <TextField fx:id="artworkMediumField"
+                                       promptText="Médium"/>
+
+                            <TextField fx:id="artworkDimensionsField"
+                                       promptText="Dimensions"/>
+
+                            <TextArea fx:id="artworkDescriptionField"
+                                      promptText="Description"
+                                      prefHeight="80"/>
+
+                            <TextField fx:id="artworkPriceField"
+                                       promptText="Prix"/>
+
+                            <ComboBox fx:id="artworkStatusComboBox"
+                                      promptText="Statut"/>
+
+                            <ComboBox fx:id="artworkArtistComboBox"
+                                      promptText="Artiste"/>
+
+                            <HBox spacing="10">
+
+                                <Button text="Ajouter"
+                                        prefWidth="100"
+                                        onAction="#handleAddArtwork"/>
+
+                                <Button text="Modifier"
+                                        prefWidth="100"
+                                        onAction="#handleUpdateArtwork"/>
+
+                            </HBox>
+
+                            <Button text="Supprimer sélection"
+                                    onAction="#deleteArtwork"/>
+
+                            <Button text="Actualiser"
+                                    onAction="#loadArtworks"/>
+
+                        </VBox>
+
+                    </left>
+
+                    <center>
+
+                        <VBox spacing="10"
+                              style="-fx-padding: 0 0 0 20;">
+
+                            <Label text="Liste des œuvres"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <ListView fx:id="artworkListView"
+                                      VBox.vgrow="ALWAYS"/>
+
+                        </VBox>
+
+                    </center>
+
+                </BorderPane>
 
             </Tab>
 
+            <!-- ===================================================== -->
             <!-- ONGLET GALERIES -->
+            <!-- ===================================================== -->
+
             <Tab text="Galeries">
 
                 <BorderPane style="
@@ -149,42 +238,45 @@
 
                     <left>
 
-                        <VBox spacing="10" prefWidth="320">
+                        <VBox spacing="10"
+                              prefWidth="320">
 
                             <Label text="Ajouter / Modifier une galerie"
-                                style="-fx-font-size: 18px;
-                                        -fx-font-weight: bold;" />
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
 
                             <TextField fx:id="galleryNameField"
-                                    promptText="Nom"/>
+                                       promptText="Nom"/>
 
                             <TextField fx:id="galleryAddressField"
-                                    promptText="Adresse"/>
+                                       promptText="Adresse"/>
 
                             <TextField fx:id="galleryOwnerField"
-                                    promptText="Propriétaire"/>
+                                       promptText="Propriétaire"/>
 
                             <TextField fx:id="galleryHoursField"
-                                    promptText="Horaires"/>
+                                       promptText="Horaires"/>
 
                             <TextField fx:id="galleryPhoneField"
-                                    promptText="Téléphone"/>
+                                       promptText="Téléphone"/>
 
                             <TextField fx:id="galleryRatingField"
-                                    promptText="Note (0 à 5)"/>
+                                       promptText="Note"/>
 
                             <TextField fx:id="galleryWebsiteField"
-                                    promptText="Site web"/>
+                                       promptText="Site web"/>
 
                             <HBox spacing="10">
 
                                 <Button text="Ajouter"
-                                        onAction="#handleAddGallery"
-                                        prefWidth="100"/>
+                                        prefWidth="100"
+                                        onAction="#handleAddGallery"/>
 
                                 <Button text="Modifier"
-                                        onAction="#handleUpdateGallery"
-                                        prefWidth="100"/>
+                                        prefWidth="100"
+                                        onAction="#handleUpdateGallery"/>
 
                             </HBox>
 
@@ -201,14 +293,16 @@
                     <center>
 
                         <VBox spacing="10"
-                            style="-fx-padding: 0 0 0 20;">
+                              style="-fx-padding: 0 0 0 20;">
 
                             <Label text="Liste des galeries"
-                                style="-fx-font-size: 18px;
-                                        -fx-font-weight: bold;" />
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
 
                             <ListView fx:id="galleryListView"
-                                    VBox.vgrow="ALWAYS"/>
+                                      VBox.vgrow="ALWAYS"/>
 
                         </VBox>
 
@@ -218,35 +312,272 @@
 
             </Tab>
 
+            <!-- ===================================================== -->
             <!-- ONGLET MEMBRES -->
+            <!-- ===================================================== -->
+
             <Tab text="Membres">
 
-                <VBox spacing="10"
-                    style="-fx-padding: 20;">
+                <BorderPane style="
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 20;
+                ">
 
-                    <Label text="Gestion des membres"
-                        style="-fx-font-size: 18px;
-                                -fx-font-weight: bold;" />
+                    <left>
 
-                    <ListView fx:id="memberListView"/>
+                        <VBox spacing="10"
+                              prefWidth="320">
 
-                </VBox>
+                            <Label text="Ajouter / Modifier un membre"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <TextField fx:id="memberNameField"
+                                       promptText="Nom"/>
+
+                            <TextField fx:id="memberEmailField"
+                                       promptText="Email"/>
+
+                            <TextField fx:id="memberBirthYearField"
+                                       promptText="Année de naissance"/>
+
+                            <TextField fx:id="memberPhoneField"
+                                       promptText="Téléphone"/>
+
+                            <TextField fx:id="memberCityField"
+                                       promptText="Ville"/>
+
+                            <TextField fx:id="memberMembershipField"
+                                       promptText="Type d'abonnement"/>
+
+                            <HBox spacing="10">
+
+                                <Button text="Ajouter"
+                                        prefWidth="100"
+                                        onAction="#handleAddMember"/>
+
+                                <Button text="Modifier"
+                                        prefWidth="100"
+                                        onAction="#handleUpdateMember"/>
+
+                            </HBox>
+
+                            <Button text="Supprimer sélection"
+                                    onAction="#deleteMember"/>
+
+                            <Button text="Actualiser"
+                                    onAction="#loadMembers"/>
+
+                        </VBox>
+
+                    </left>
+
+                    <center>
+
+                        <VBox spacing="10"
+                              style="-fx-padding: 0 0 0 20;">
+
+                            <Label text="Liste des membres"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <ListView fx:id="memberListView"
+                                      VBox.vgrow="ALWAYS"/>
+
+                        </VBox>
+
+                    </center>
+
+                </BorderPane>
 
             </Tab>
 
+            <!-- ===================================================== -->
             <!-- ONGLET EXPOSITIONS -->
+            <!-- ===================================================== -->
+
             <Tab text="Expositions">
 
-                <VBox spacing="10"
-                    style="-fx-padding: 20;">
+                <BorderPane style="
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 20;
+                ">
 
-                    <Label text="Gestion des expositions"
-                        style="-fx-font-size: 18px;
-                                -fx-font-weight: bold;" />
+                    <left>
 
-                    <ListView fx:id="exhibitionListView"/>
+                        <VBox spacing="10"
+                              prefWidth="350">
 
-                </VBox>
+                            <Label text="Ajouter / Modifier une exposition"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <TextField fx:id="exhibitionTitleField"
+                                       promptText="Titre"/>
+
+                            <DatePicker fx:id="exhibitionStartDateField"/>
+
+                            <DatePicker fx:id="exhibitionEndDateField"/>
+
+                            <TextArea fx:id="exhibitionDescriptionField"
+                                      promptText="Description"
+                                      prefHeight="80"/>
+
+                            <TextField fx:id="exhibitionCuratorField"
+                                       promptText="Curateur"/>
+
+                            <TextField fx:id="exhibitionThemeField"
+                                       promptText="Thème"/>
+
+                            <ComboBox fx:id="exhibitionGalleryComboBox"
+                                      promptText="Galerie"/>
+
+                            <HBox spacing="10">
+
+                                <Button text="Ajouter"
+                                        prefWidth="100"
+                                        onAction="#handleAddExhibition"/>
+
+                                <Button text="Modifier"
+                                        prefWidth="100"
+                                        onAction="#handleUpdateExhibition"/>
+
+                            </HBox>
+
+                            <Button text="Supprimer sélection"
+                                    onAction="#deleteExhibition"/>
+
+                            <Button text="Actualiser"
+                                    onAction="#loadExhibitions"/>
+
+                        </VBox>
+
+                    </left>
+
+                    <center>
+
+                        <VBox spacing="10"
+                              style="-fx-padding: 0 0 0 20;">
+
+                            <Label text="Liste des expositions"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <ListView fx:id="exhibitionListView"
+                                      VBox.vgrow="ALWAYS"/>
+
+                        </VBox>
+
+                    </center>
+
+                </BorderPane>
+
+            </Tab>
+
+            <!-- ===================================================== -->
+            <!-- ONGLET WORKSHOPS -->
+            <!-- ===================================================== -->
+
+            <Tab text="Workshops">
+
+                <BorderPane style="
+                    -fx-background-color: white;
+                    -fx-background-radius: 15;
+                    -fx-padding: 20;
+                ">
+
+                    <left>
+
+                        <VBox spacing="10"
+                              prefWidth="350">
+
+                            <Label text="Ajouter / Modifier un workshop"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <TextField fx:id="workshopTitleField"
+                                       promptText="Titre"/>
+
+                            <DatePicker fx:id="workshopDateField"/>
+
+                            <TextField fx:id="workshopTimeField"
+                                       promptText="Heure (HH:mm)"/>
+
+                            <TextField fx:id="workshopDurationField"
+                                       promptText="Durée (minutes)"/>
+
+                            <TextField fx:id="workshopMaxParticipantsField"
+                                       promptText="Participants max"/>
+
+                            <TextField fx:id="workshopPriceField"
+                                       promptText="Prix"/>
+
+                            <ComboBox fx:id="workshopArtistComboBox"
+                                      promptText="Artiste instructeur"/>
+
+                            <TextField fx:id="workshopLocationField"
+                                       promptText="Lieu"/>
+
+                            <TextArea fx:id="workshopDescriptionField"
+                                      promptText="Description"
+                                      prefHeight="80"/>
+
+                            <ComboBox fx:id="workshopLevelComboBox"
+                                      promptText="Niveau"/>
+
+                            <HBox spacing="10">
+
+                                <Button text="Ajouter"
+                                        prefWidth="100"
+                                        onAction="#handleAddWorkshop"/>
+
+                                <Button text="Modifier"
+                                        prefWidth="100"
+                                        onAction="#handleUpdateWorkshop"/>
+
+                            </HBox>
+
+                            <Button text="Supprimer sélection"
+                                    onAction="#deleteWorkshop"/>
+
+                            <Button text="Actualiser"
+                                    onAction="#loadWorkshops"/>
+
+                        </VBox>
+
+                    </left>
+
+                    <center>
+
+                        <VBox spacing="10"
+                              style="-fx-padding: 0 0 0 20;">
+
+                            <Label text="Liste des workshops"
+                                   style="
+                                        -fx-font-size: 18px;
+                                        -fx-font-weight: bold;
+                                   "/>
+
+                            <ListView fx:id="workshopListView"
+                                      VBox.vgrow="ALWAYS"/>
+
+                        </VBox>
+
+                    </center>
+
+                </BorderPane>
 
             </Tab>
 
