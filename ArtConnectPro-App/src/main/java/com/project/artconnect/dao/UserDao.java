@@ -13,6 +13,10 @@ public interface UserDao {
     boolean register(
             String name,
             String email,
+            int birthYear,
+            String phone,
+            String city,
+            String membership,
             String username,
             String password
     );

@@ -58,6 +58,10 @@ public class JdbcUserDao implements UserDao {
     public boolean register(
             String name,
             String email,
+            int birthYear,
+            String phone,
+            String city,
+            String membership,
             String username,
             String password
     ) {
@@ -66,8 +70,15 @@ public class JdbcUserDao implements UserDao {
 
             String memberQuery = """
                 INSERT INTO community_member
-                (name,email,membership_type)
-                VALUES (?,?,?)
+                (
+                    name,
+                    email,
+                    birth_year,
+                    phone,
+                    city,
+                    membership_type
+                )
+                VALUES (?,?,?,?,?,?)
             """;
 
             PreparedStatement memberStmt =
@@ -76,15 +87,22 @@ public class JdbcUserDao implements UserDao {
                             PreparedStatement.RETURN_GENERATED_KEYS
                     );
 
-            memberStmt.setString(1,name);
+            memberStmt.setString(1, name);
 
-            memberStmt.setString(2,email);
+            memberStmt.setString(2, email);
 
-            memberStmt.setString(3,"Standard");
+            memberStmt.setInt(3, birthYear);
+
+            memberStmt.setString(4, phone);
+
+            memberStmt.setString(5, city);
+
+            memberStmt.setString(6, membership);
 
             memberStmt.executeUpdate();
 
-            var generatedKeys = memberStmt.getGeneratedKeys();
+            var generatedKeys =
+                    memberStmt.getGeneratedKeys();
 
             int memberId = -1;
 
@@ -98,20 +116,25 @@ public class JdbcUserDao implements UserDao {
 
             String userQuery = """
                 INSERT INTO app_user
-                (username,password,role,member_id)
+                (
+                    username,
+                    password,
+                    role,
+                    member_id
+                )
                 VALUES (?,?,?,?)
             """;
 
             PreparedStatement userStmt =
                     connection.prepareStatement(userQuery);
 
-            userStmt.setString(1,username);
+            userStmt.setString(1, username);
 
-            userStmt.setString(2,hashedPassword);
+            userStmt.setString(2, hashedPassword);
 
-            userStmt.setString(3,"USER");
+            userStmt.setString(3, "USER");
 
-            userStmt.setInt(4,memberId);
+            userStmt.setInt(4, memberId);
 
             userStmt.executeUpdate();
 

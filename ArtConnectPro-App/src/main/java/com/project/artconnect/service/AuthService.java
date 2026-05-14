@@ -56,6 +56,10 @@ public class AuthService {
     public boolean register(
             String name,
             String email,
+            int birthYear,
+            String phone,
+            String city,
+            String membership,
             String username,
             String password
     ) {
@@ -65,6 +69,10 @@ public class AuthService {
             return userDao.register(
                     name,
                     email,
+                    birthYear,
+                    phone,
+                    city,
+                    membership,
                     username,
                     password
             );
